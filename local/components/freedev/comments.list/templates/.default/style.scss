@@ -1,0 +1,93 @@
+@import "swiper.css";
+.comments{
+  position: relative;
+  &_item{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    @media (max-width: 1200px) {
+      padding: 0 30px;
+    }
+    &-footer{
+      background-color: white;
+      padding: 20px;
+      max-width: 180px;
+      min-height: 150px;
+      position: absolute;
+      right: 0;
+      bottom: 30px;
+      @media (max-width: 840px) {
+        right: inherit;
+      }
+    }
+    &-avatar{
+      margin-bottom: 130px;
+    }
+    &-name{
+      color: black;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    &-desc{
+      color: #84888f;
+      font-size: 16px;
+    }
+  }
+  &_button{
+    position: absolute;
+    outline: none;
+    border: 0;
+    z-index: 1;
+    top: 50%;
+    margin-top: calc(50px / 2 - 50px);
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    cursor: pointer;
+    @media (max-width: 840px) {
+      display: none;
+    }
+    &:before{
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: {
+        image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAUCAMAAACOLiwjAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABUUExURUdwTEy06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06ky06hIjW4MAAAAbdFJOUwAuiH789hbOBAmidKppslu+U8cPTELTN9wc8drVDVsAAABWSURBVBjTVc9XCsBQCETRvLSX3vvd/z4DQQPj1xFEnSTxCjH8Ph+iey+4bvNWcJTmOSe6x5xlNfcw1eYWBncGXWVOoXFrI2O6QFfrUX1HH9UIGu6L/QL22QXbZlGhZwAAAABJRU5ErkJggg==');
+        position: center;
+        repeat: no-repeat;
+      };
+    }
+    &--left{
+      left: -4%;
+    }
+    &--right{
+      right: -4%;
+      &:before{
+        transform: rotate(180deg);
+      }
+    }
+  }
+  .container{position: relative;}
+  .section__heading{
+    &:after{
+      width: 90px;
+      height: 2px;
+    }
+  }
+  .swiper-pagination-bullet {
+    background: white;
+    opacity: 1;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #cdd0d3;
+    &-active{
+      border-color: #d8201f;
+      background-color: #d8201f;
+    }
+  }
+}
