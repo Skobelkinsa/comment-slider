@@ -1,10 +1,10 @@
-<?
-if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
+<?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
+use Bitrix\Main\Localization\Loc;
 
 $arComponentDescription = array(
-	"NAME" => GetMessage("SIMPLECOMP_EXAM2_NAME_COMP"),
+	"NAME" => Loc::getMessage("COMPONENT_NAME"),
 	"PATH" => array(
 		"ID" => "comments.list",
-		"NAME" => GetMessage("SIMPLECOMP_EXAM2_NAME"),
+		"NAME" => Loc::getMessage("COMPONENT_CATEGORY"),
 	),
 );

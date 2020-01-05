@@ -1,3 +1,3 @@
 <?
-$MESS["SIMPLECOMP_EXAM2_NAME"] = "Lasertech";
-$MESS["SIMPLECOMP_EXAM2_NAME_COMP"] = "Сладер комментариев";
+$MESS["COMPONENT_CATEGORY"] = "FreeDev";
+$MESS["COMPONENT_NAME"] = "Сладер комментариев";

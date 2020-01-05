@@ -1,7 +1,12 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+use Bitrix\Main\Localization\Loc;
+$this->addExternalJS($this->GetFolder()."/swiper.min.js");
+$this->addExternalCss($this->GetFolder()."/swiper.css");
+/** @var array $arResult */
+?>
 <div class="comments">
     <div class="container">
-        <h2 class="section__heading"><?=GetMessage("SLIDER_COMMENTS_TITLE")?></h2>
+        <h2 class="section__heading"><?=Loc::getMessage("SLIDER_COMMENTS_TITLE")?></h2>
         <!-- Swiper -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -31,29 +36,3 @@
         <div class="comments_button comments_button--right"></div>
     </div>
 </div>
-<script>
-    $(function () {
-        $.getScript('<?=$this->GetFolder()."./swiper.min.js"?>', function(){
-            new Swiper('.comments .swiper-container', {
-                slidesPerView: 3,
-                loop: true,
-                autoplay: {
-                    delay: 2500,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.comments .swiper-pagination',
-                },
-                navigation: {
-                    nextEl: '.comments_button--right',
-                    prevEl: '.comments_button--left',
-                },
-                breakpoints: {
-                    768: {
-                        slidesPerView: 1,
-                    }
-                },
-            });
-        });
-    });
-</script>

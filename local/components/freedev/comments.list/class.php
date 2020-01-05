@@ -9,7 +9,7 @@ use Bitrix\Main\SystemException,
 
 if(!Loader::includeModule("iblock"))
 {
-    ShowError(Loc::getMessage("SIMPLECOMP_EXAM2_IBLOCK_MODULE_NONE"));
+    ShowError(Loc::getMessage("SLIDER_COMMENTS_IBLOCK_MODULE_NONE"));
     return;
 }
 
@@ -22,7 +22,7 @@ class Comments extends CBitrixComponent
     public function onPrepareComponentParams($arParams){
         try {
             if (!intval($arParams["IBLOCK_ID"])) {
-                throw new SystemException(Loc::getMessage("SIMPLECOMP_EXAM2_EXCEPTION", array("PARAMS" => "NEWS_IBLOCK_ID")));
+                throw new SystemException(Loc::getMessage("SLIDER_COMMENTS_EXCEPTION", array("PARAMS" => "NEWS_IBLOCK_ID")));
             }
         }catch (SystemException $exception) {
             ShowError($exception->getMessage());
@@ -30,11 +30,19 @@ class Comments extends CBitrixComponent
         }
         return array(
             "IBLOCK_ID" => $arParams["IBLOCK_ID"],
+            "SIZE_IMAGE_WIDTH" => $arParams["SIZE_IMAGE_WIDTH"],
+            "SIZE_IMAGE_HEIGHT" => $arParams["SIZE_IMAGE_HEIGHT"],
             "CACHE_TYPE" => $arParams["CACHE_TYPE"],
             "CACHE_TIME" => isset($arParams["CACHE_TIME"]) ?$arParams["CACHE_TIME"]: 36000000,
         );
     }
 
+    /**
+     * @return array|mixed
+     * @throws SystemException
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     */
     public function executeComponent()
     {
         if($this->startResultCache())
@@ -45,7 +53,15 @@ class Comments extends CBitrixComponent
         return $this->arResult;
     }
 
+    /**
+     * @param $IB_ID
+     * @return array
+     * @throws SystemException
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     */
     public function getComments($IB_ID){
+        //Debug::dump($this->arParams);
         $arResult = [];
         if(intval($IB_ID)){
             $dbItem = Iblock\ElementTable::getList(array(
@@ -53,8 +69,10 @@ class Comments extends CBitrixComponent
                 "filter" => array("IBLOCK_ID" => $IB_ID, "ACTIVE" => "Y")
             ));
             while ($arItem = $dbItem->fetch()) {
+                print_r($this->arParams["SIZE_IMAGE_WIDTH"]);
                 $arResult[$arItem["ID"]] = $arItem;
-                $arResult[$arItem["ID"]]["PREVIEW_PICTURE"] = CFile::ResizeImageGet($arItem['PREVIEW_PICTURE'], array('width'=>320, 'height'=>320), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                if(intval($arItem['PREVIEW_PICTURE']))
+                    $arResult[$arItem["ID"]]["PREVIEW_PICTURE"] = CFile::ResizeImageGet($arItem['PREVIEW_PICTURE'], array('width'=>$this->arParams["SIZE_IMAGE_WIDTH"], 'height'=>$this->arParams["SIZE_IMAGE_HEIGHT"]), BX_RESIZE_IMAGE_PROPORTIONAL, true);
             }
         }
         return $arResult;
